@@ -13,14 +13,20 @@ Hi, I'm **PRIY4DH4RS4N-D**. This README is tuned for **personal brand** with a G
     <img src="https://www.gitskins.com/api/section/hero?username=PRIY4DH4RS4N-D&theme=github-dark" alt="PRIY4DH4RS4N-D hero section" />
   </picture>
 </p>
-## Heatmap
-Animated year-long contribution calendar.
-## GitHub Stats
-GitSkins stat widgets will use the **GitHub** theme.
+## About Me
+Shapes the short profile story and positioning.
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/stats?username=PRIY4DH4RS4N-D&theme=github-dark&mode=light" />
-    <img src="https://www.gitskins.com/api/section/stats?username=PRIY4DH4RS4N-D&theme=github-dark" alt="PRIY4DH4RS4N-D stats section" />
+    <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/about?username=PRIY4DH4RS4N-D&theme=github-dark&mode=light" />
+    <img src="https://www.gitskins.com/api/section/about?username=PRIY4DH4RS4N-D&theme=github-dark" alt="PRIY4DH4RS4N-D about section" />
+  </picture>
+</p>
+## Skills
+Selected stack and skill badges will be generated from the GitHub profile and README strategy.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/stack?username=PRIY4DH4RS4N-D&theme=github-dark&mode=light" />
+    <img src="https://www.gitskins.com/api/section/stack?username=PRIY4DH4RS4N-D&theme=github-dark" alt="PRIY4DH4RS4N-D stack section" />
   </picture>
 </p>
 ## Projects
@@ -29,6 +35,16 @@ Highlights repositories as proof of work.
   <picture>
     <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/projects?username=PRIY4DH4RS4N-D&theme=github-dark&mode=light" />
     <img src="https://www.gitskins.com/api/section/projects?username=PRIY4DH4RS4N-D&theme=github-dark" alt="PRIY4DH4RS4N-D projects section" />
+  </picture>
+</p>
+## Heatmap
+Animated year-long contribution calendar.
+## GitHub Stats
+GitSkins stat widgets will use the **GitHub** theme.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/stats?username=PRIY4DH4RS4N-D&theme=github-dark&mode=light" />
+    <img src="https://www.gitskins.com/api/section/stats?username=PRIY4DH4RS4N-D&theme=github-dark" alt="PRIY4DH4RS4N-D stats section" />
   </picture>
 </p>
 ## Connect
@@ -40,4 +56,4 @@ Contact and social links will appear here.
   </picture>
 </p>
 
-<!-- Sections: Header, Heatmap, GitHub Stats, Projects, Connect -->
+<!-- Sections: Header, About Me, Skills, Projects, Heatmap, GitHub Stats, Connect -->
