@@ -1,4 +1,4 @@
-Hi, I'm **PRIY4DH4RS4N-D**. This README is tuned for **open source** with a Neon visual system.
+Hi, I'm **PRIY4DH4RS4N-D**.
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: light)" srcset="https://www.gitskins.com/api/section/hero?username=PRIY4DH4RS4N-D&theme=neon&mode=light" />
