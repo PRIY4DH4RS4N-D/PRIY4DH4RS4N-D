@@ -1,9 +1,3 @@
-# PRIY4DH4RS4N-D
-
-> Maintainer credibility and contributor clarity.
-
-**Theme:** Neon · **Style:** Detailed · **Agent:** Full-Stack Engineer
-
 ## Header
 > Editing this section in the inspector.
 Hi, I'm **PRIY4DH4RS4N-D**. This README is tuned for **open source** with a Neon visual system.
