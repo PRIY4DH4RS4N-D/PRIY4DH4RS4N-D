@@ -1,0 +1,43 @@
+# ═══════════════════════════════════════════════════════════════════
+# GitHub Actions Workflow: Generate Contribution Snake Animation
+# 
+# Uses Platane/snk to generate an SVG animation of the GitHub
+# contribution graph. Runs every 12 hours and on push to main.
+# 
+# Output: dist/github-snake.svg & dist/github-snake-dark.svg
+# Branch: output
+# ═══════════════════════════════════════════════════════════════════
+
+name: Generate Contribution Snake
+
+on:
+  schedule:
+    - cron: "0 */12 * * *"   # Every 12 hours
+  workflow_dispatch:          # Manual trigger
+  push:
+    branches:
+      - main
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+
+    steps:
+      - name: Generate Snake Animation
+        uses: Platane/snk@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-snake.svg
+            dist/github-snake-dark.svg?palette=github-dark
+
+      - name: Push to output branch
+        uses: crazy-max/ghaction-github-pages@v3.1.0
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
