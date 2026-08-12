@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 250" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .bg { fill: #0d1117; }
+      .box { fill: #161b22; stroke: #30363d; stroke-width: 2; rx: 4; }
+      .box-text { fill: #c9d1d9; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+      .path-line { stroke: #30363d; stroke-width: 2; fill: none; }
+      
+      .packet-cyan { fill: #00D4AA; filter: drop-shadow(0 0 4px #00D4AA); }
+      .packet-green { fill: #4ade80; filter: drop-shadow(0 0 4px #4ade80); }
+      .packet-purple { fill: #c084fc; filter: drop-shadow(0 0 4px #c084fc); }
+      .packet-yellow { fill: #facc15; filter: drop-shadow(0 0 4px #facc15); }
+
+      .protocol-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; fill: #8892B0; }
+      
+      @keyframes moveRight1 { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+      @keyframes moveRight2 { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+    </style>
+  </defs>
+
+  <rect class="bg" width="800" height="250" />
+
+  <!-- Flow Paths -->
+  <path id="path1" class="path-line" d="M 160 125 L 240 125" />
+  
+  <path id="path-uart" class="path-line" d="M 380 95 L 420 95 L 420 70 L 460 70" />
+  <path id="path-spi" class="path-line" d="M 380 125 L 460 125" />
+  <path id="path-i2c" class="path-line" d="M 380 155 L 420 155 L 420 180 L 460 180" />
+  
+  <path id="path4" class="path-line" d="M 600 125 L 680 125" />
+
+  <!-- Block: Sensors -->
+  <rect x="40" y="85" width="120" height="80" class="box" />
+  <text x="100" y="125" class="box-text">SENSORS</text>
+
+  <!-- Block: MCU -->
+  <rect x="240" y="75" width="140" height="100" class="box" stroke="#00D4AA" />
+  <text x="310" y="125" class="box-text" style="fill:#00D4AA;">MCU</text>
+
+  <!-- Block: Protocols (Visual only) -->
+  <text x="435" y="65" class="protocol-label">UART</text>
+  <text x="435" y="120" class="protocol-label">SPI</text>
+  <text x="435" y="175" class="protocol-label">I2C</text>
+
+  <!-- Block: Edge AI -->
+  <rect x="460" y="55" width="140" height="140" class="box" stroke="#FF6F00" />
+  <text x="530" y="125" class="box-text" style="fill:#FF6F00;">EDGE AI</text>
+
+  <!-- Block: Actuation -->
+  <rect x="680" y="85" width="100" height="80" class="box" />
+  <text x="730" y="125" class="box-text">ACTUATION</text>
+
+  <!-- Animated Packets -->
+  <circle class="packet-cyan" r="3" style="offset-path: path('M 160 125 L 240 125'); animation: moveRight1 2s linear infinite;" />
+  <circle class="packet-green" r="3" style="offset-path: path('M 160 125 L 240 125'); animation: moveRight1 2s linear infinite; animation-delay: 1s;" />
+
+  <circle class="packet-cyan" r="3" style="offset-path: path('M 380 95 L 420 95 L 420 70 L 460 70'); animation: moveRight2 2s linear infinite; animation-delay: 0.5s;" />
+  <circle class="packet-green" r="3" style="offset-path: path('M 380 125 L 460 125'); animation: moveRight2 2s linear infinite; animation-delay: 1.2s;" />
+  <circle class="packet-purple" r="3" style="offset-path: path('M 380 155 L 420 155 L 420 180 L 460 180'); animation: moveRight2 2s linear infinite; animation-delay: 0.8s;" />
+
+  <circle class="packet-yellow" r="3" style="offset-path: path('M 600 125 L 680 125'); animation: moveRight1 2s linear infinite; animation-delay: 1.5s;" />
+
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=JetBrains+Mono:wght@700&amp;display=swap');
+      .bg { fill: #0d1117; stroke: #30363d; stroke-width: 2; rx: 8; }
+      .title { fill: #f0f6fc; font-family: 'Inter', sans-serif; font-size: 24px; font-weight: 700; }
+      .badge-bg { fill: #005CED; rx: 12; }
+      .badge-text { fill: #ffffff; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+      .arch-box { fill: #161b22; stroke: #00D4AA; stroke-width: 1.5; rx: 4; }
+      .arch-text { fill: #c9d1d9; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+      .arrow { fill: #8892B0; }
+      .flow { fill: #00D4AA; filter: drop-shadow(0 0 4px #00D4AA); }
+      @keyframes pulseFlow { 0% { opacity: 0; transform: translateY(-5px); } 50% { opacity: 1; transform: translateY(5px); } 100% { opacity: 0; transform: translateY(15px); } }
+    </style>
+  </defs>
+
+  <rect class="bg" width="796" height="296" x="2" y="2" />
+  
+  <text x="40" y="50" class="title">AURORA-Q</text>
+  
+  <!-- Badges -->
+  <g transform="translate(40, 70)">
+    <rect width="120" height="24" class="badge-bg"/><text x="60" y="12" class="badge-text">ARDUINO UNO Q</text>
+  </g>
+  <g transform="translate(170, 70)">
+    <rect width="100" height="24" class="badge-bg"/><text x="50" y="12" class="badge-text">CORTEX-A53</text>
+  </g>
+  <g transform="translate(280, 70)">
+    <rect width="100" height="24" class="badge-bg"/><text x="50" y="12" class="badge-text">CORTEX-M33</text>
+  </g>
+  
+  <g transform="translate(40, 105)">
+    <rect width="60" height="24" class="badge-bg"/><text x="30" y="12" class="badge-text">4-DOF</text>
+  </g>
+  <g transform="translate(110, 105)">
+    <rect width="100" height="24" class="badge-bg"/><text x="50" y="12" class="badge-text">PHYSICAL AI</text>
+  </g>
+
+  <!-- Key Info -->
+  <text x="40" y="165" font-family="'Inter', sans-serif" font-size="14" fill="#8892B0" font-weight="700">ROBOTICS PIPELINE</text>
+  <text x="40" y="185" font-family="'Inter', sans-serif" font-size="14" fill="#c9d1d9">Heterogeneous computing architecture</text>
+  <text x="40" y="205" font-family="'Inter', sans-serif" font-size="14" fill="#c9d1d9">balancing high-level planning and precise control.</text>
+
+  <!-- Architecture Flow -->
+  <g transform="translate(550, 40)">
+    <rect x="0" y="0" width="140" height="30" class="arch-box"/><text x="70" y="15" class="arch-text">PERCEPTION</text>
+    <path class="arrow" d="M 65 35 L 75 35 L 70 45 Z" />
+    <circle cx="70" cy="35" r="3" class="flow" style="animation: pulseFlow 2s infinite;" />
+    
+    <rect x="0" y="50" width="140" height="30" class="arch-box" stroke="#FF6F00" /><text x="70" y="65" class="arch-text" style="fill:#FF6F00">DECISION</text>
+    <path class="arrow" d="M 65 85 L 75 85 L 70 95 Z" />
+    <circle cx="70" cy="85" r="3" class="flow" style="animation: pulseFlow 2s infinite; animation-delay: 0.4s;" />
+    
+    <rect x="0" y="100" width="140" height="30" class="arch-box" stroke="#FF6F00" /><text x="70" y="115" class="arch-text" style="fill:#FF6F00">MISSION PLANNING</text>
+    <path class="arrow" d="M 65 135 L 75 135 L 70 145 Z" />
+    <circle cx="70" cy="135" r="3" class="flow" style="animation: pulseFlow 2s infinite; animation-delay: 0.8s;" />
+    
+    <rect x="0" y="150" width="140" height="30" class="arch-box"/><text x="70" y="165" class="arch-text">MOTION</text>
+    <path class="arrow" d="M 65 185 L 75 185 L 70 195 Z" />
+    <circle cx="70" cy="185" r="3" class="flow" style="animation: pulseFlow 2s infinite; animation-delay: 1.2s;" />
+    
+    <rect x="0" y="200" width="140" height="30" class="arch-box"/><text x="70" y="215" class="arch-text">MANIPULATION</text>
+  </g>
+</svg>

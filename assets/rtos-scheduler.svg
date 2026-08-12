@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 150" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .bg { fill: #0d1117; }
+      .text-main { fill: #c9d1d9; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 700; }
+      .text-title { fill: #00D4AA; font-family: 'JetBrains Mono', monospace; font-size: 16px; font-weight: 700; letter-spacing: 2px; }
+      .grid-line { stroke: #30363d; stroke-width: 1; stroke-dasharray: 2; }
+      
+      .task-a { fill: #00D4AA; rx: 3; }
+      .task-b { fill: #4ade80; rx: 3; }
+      .task-c { fill: #FF6F00; rx: 3; }
+      
+      .cursor { stroke: #f0f6fc; stroke-width: 2; }
+      
+      @keyframes cursorMove { 0% { transform: translateX(180px); } 100% { transform: translateX(750px); } }
+      
+      @keyframes taskShowA1 { 0%, 5% { opacity: 0; } 5.1%, 100% { opacity: 1; } }
+      @keyframes taskShowB1 { 0%, 25% { opacity: 0; } 25.1%, 100% { opacity: 1; } }
+      @keyframes taskShowC1 { 0%, 45% { opacity: 0; } 45.1%, 100% { opacity: 1; } }
+      @keyframes taskShowA2 { 0%, 75% { opacity: 0; } 75.1%, 100% { opacity: 1; } }
+    </style>
+  </defs>
+
+  <rect class="bg" width="800" height="150" />
+  
+  <text x="30" y="30" class="text-title">RTOS / μT-KERNEL 3.0</text>
+  
+  <!-- Grid -->
+  <path class="grid-line" d="M 180 50 L 180 130" />
+  <path class="grid-line" d="M 320 50 L 320 130" />
+  <path class="grid-line" d="M 460 50 L 460 130" />
+  <path class="grid-line" d="M 600 50 L 600 130" />
+  <path class="grid-line" d="M 740 50 L 740 130" />
+
+  <!-- Labels -->
+  <text x="30" y="70" class="text-main">TASK A (High)</text>
+  <text x="30" y="95" class="text-main">TASK B (Med)</text>
+  <text x="30" y="120" class="text-main">TASK C (Low)</text>
+
+  <!-- Task Blocks -->
+  <rect x="180" y="55" width="100" height="15" class="task-a" style="animation: taskShowA1 4s linear infinite;" />
+  <rect x="320" y="80" width="80" height="15" class="task-b" style="animation: taskShowB1 4s linear infinite;" />
+  <rect x="460" y="105" width="60" height="15" class="task-c" style="animation: taskShowC1 4s linear infinite;" />
+  <rect x="600" y="55" width="120" height="15" class="task-a" style="animation: taskShowA2 4s linear infinite;" />
+
+  <!-- Timeline Cursor -->
+  <path class="cursor" d="M 0 45 L 0 135" style="animation: cursorMove 4s linear infinite;" />
+
+</svg>

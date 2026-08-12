@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&amp;display=swap');
+      .bg { fill: #0d1117; }
+      .dna-text { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; fill: #c9d1d9; text-anchor: middle; letter-spacing: 4px; }
+      .arrow { fill: #00D4AA; opacity: 0; }
+      
+      @keyframes cascadeFade { 0%, 10% { opacity: 0; transform: translateY(-10px); } 15%, 85% { opacity: 1; transform: translateY(0); } 90%, 100% { opacity: 0; } }
+      @keyframes arrowFade { 0%, 12% { opacity: 0; } 17%, 85% { opacity: 1; } 90%, 100% { opacity: 0; } }
+    </style>
+  </defs>
+
+  <rect class="bg" width="800" height="400" />
+  
+  <g transform="translate(400, 50)">
+    <text y="0" class="dna-text" style="animation: cascadeFade 6s infinite;">SILICON</text>
+    <path class="arrow" d="M -8 15 L 8 15 L 0 25 Z" style="animation: arrowFade 6s infinite; animation-delay: 0.5s;" />
+    
+    <text y="50" class="dna-text" style="animation: cascadeFade 6s infinite; animation-delay: 1s;">RTL</text>
+    <path class="arrow" d="M -8 65 L 8 65 L 0 75 Z" style="animation: arrowFade 6s infinite; animation-delay: 1.5s;" />
+    
+    <text y="100" class="dna-text" style="animation: cascadeFade 6s infinite; animation-delay: 2s; fill: #00D4AA;">MCU</text>
+    <path class="arrow" d="M -8 115 L 8 115 L 0 125 Z" style="animation: arrowFade 6s infinite; animation-delay: 2.5s;" />
+    
+    <text y="150" class="dna-text" style="animation: cascadeFade 6s infinite; animation-delay: 3s;">FIRMWARE</text>
+    <path class="arrow" d="M -8 165 L 8 165 L 0 175 Z" style="animation: arrowFade 6s infinite; animation-delay: 3.5s;" />
+    
+    <text y="200" class="dna-text" style="animation: cascadeFade 6s infinite; animation-delay: 4s; fill: #FF6F00;">EDGE AI</text>
+    <path class="arrow" d="M -8 215 L 8 215 L 0 225 Z" style="animation: arrowFade 6s infinite; animation-delay: 4.5s;" />
+    
+    <text y="250" class="dna-text" style="animation: cascadeFade 6s infinite; animation-delay: 5s;">PHYSICAL SYSTEM</text>
+  </g>
+</svg>

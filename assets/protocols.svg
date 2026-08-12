@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 300" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;display=swap');
+      .bg { fill: #0d1117; }
+      .mcu { fill: #161b22; stroke: #00D4AA; stroke-width: 3; rx: 8; }
+      .mcu-text { fill: #00D4AA; font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+      .proto-box { fill: #0d1117; stroke: #30363d; stroke-width: 1; rx: 4; }
+      .proto-text { fill: #c9d1d9; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+      .wire { stroke: #1f6b59; stroke-width: 1; stroke-dasharray: 4; fill: none; }
+      
+      .packet { fill: #00D4AA; filter: drop-shadow(0 0 4px #00D4AA); }
+      
+      @keyframes travel { 0% { offset-distance: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+      @keyframes travel-rev { 0% { offset-distance: 100%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 0%; opacity: 0; } }
+    </style>
+  </defs>
+
+  <rect class="bg" width="800" height="300" />
+
+  <!-- Central MCU -->
+  <rect x="330" y="100" width="140" height="100" class="mcu" />
+  <text x="400" y="150" class="mcu-text">MCU Core</text>
+
+  <!-- Wires & Protocols -->
+  <!-- Top Row -->
+  <path id="w-uart" class="wire" d="M 150 50 L 330 110" />
+  <path id="w-spi" class="wire" d="M 283 50 L 365 100" />
+  <path id="w-i2c" class="wire" d="M 400 50 L 400 100" />
+  <path id="w-can" class="wire" d="M 517 50 L 435 100" />
+  <path id="w-usb" class="wire" d="M 650 50 L 470 110" />
+
+  <!-- Bottom Row -->
+  <path id="w-ble" class="wire" d="M 150 250 L 330 190" />
+  <path id="w-wifi" class="wire" d="M 283 250 L 365 200" />
+  <path id="w-i2s" class="wire" d="M 400 250 L 400 200" />
+  <path id="w-mipi" class="wire" d="M 517 250 L 435 200" />
+  <path id="w-jtag" class="wire" d="M 650 250 L 470 190" />
+
+  <!-- Packets -->
+  <circle class="packet" r="3" style="offset-path: path('M 150 50 L 330 110'); animation: travel 2s linear infinite;" />
+  <circle class="packet" r="3" style="offset-path: path('M 283 50 L 365 100'); animation: travel-rev 1.5s linear infinite; animation-delay: 0.5s;" />
+  <circle class="packet" r="3" style="offset-path: path('M 400 50 L 400 100'); animation: travel 1.2s linear infinite; animation-delay: 0.2s;" />
+  <circle class="packet" r="3" style="offset-path: path('M 517 50 L 435 100'); animation: travel-rev 1.8s linear infinite; animation-delay: 0.7s;" />
+  <circle class="packet" r="3" style="offset-path: path('M 650 50 L 470 110'); animation: travel 2.5s linear infinite;" />
+
+  <circle class="packet" r="3" style="offset-path: path('M 150 250 L 330 190'); animation: travel-rev 2.2s linear infinite; animation-delay: 0.3s;" />
+  <circle class="packet" r="3" style="offset-path: path('M 283 250 L 365 200'); animation: travel 1.7s linear infinite; animation-delay: 0.9s;" />
+  <circle class="packet" r="3" style="offset-path: path('M 400 250 L 400 200'); animation: travel-rev 1.4s linear infinite; animation-delay: 0.1s;" />
+  <circle class="packet" r="3" style="offset-path: path('M 517 250 L 435 200'); animation: travel 1.9s linear infinite; animation-delay: 0.8s;" />
+  <circle class="packet" r="3" style="offset-path: path('M 650 250 L 470 190'); animation: travel-rev 2.1s linear infinite; animation-delay: 0.4s;" />
+
+
+  <!-- Protocol Boxes -->
+  <g transform="translate(120, 35)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">UART</text></g>
+  <g transform="translate(253, 35)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">SPI</text></g>
+  <g transform="translate(370, 35)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">I2C</text></g>
+  <g transform="translate(487, 35)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">CAN</text></g>
+  <g transform="translate(620, 35)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">USB</text></g>
+
+  <g transform="translate(120, 235)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">BLE</text></g>
+  <g transform="translate(253, 235)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">WiFi</text></g>
+  <g transform="translate(370, 235)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">I2S</text></g>
+  <g transform="translate(487, 235)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">MIPI</text></g>
+  <g transform="translate(620, 235)"><rect width="60" height="30" class="proto-box"/><text x="30" y="15" class="proto-text">JTAG</text></g>
+
+</svg>
