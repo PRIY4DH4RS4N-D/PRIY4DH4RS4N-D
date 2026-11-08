@@ -6,6 +6,7 @@ from PIL import Image, ImageFont
 from random import Random
 
 ROOT = Path(__file__).resolve().parent
+NAME = 'Priyadharsan D'
 DESCRIPTION = (
     'Electronics Engineering student specializing in Embedded Firmware, '
     'Edge AI/ML, and RTOS, with hands-on work in MCU development, FPGA '
@@ -53,10 +54,66 @@ for row in range(125, source.height - 40, 27):
             f'animation-duration:{random.uniform(2.8, 4.8):.2f}s; '
             f'animation-delay:-{random.uniform(0, 5):.2f}s"/>'
         )
+bot_shapes = [
+    ('#ff493d', 'M0 -25 C14 -25 25 -14 25 0 C25 14 14 25 0 25 C-14 25 -25 14 -25 0 C-25 -14 -14 -25 0 -25 Z'),
+    ('#00bba8', 'M0 -25 C24 -25 25 -24 25 0 C25 24 24 25 0 25 C-24 25 -25 24 -25 0 C-25 -24 -24 -25 0 -25 Z'),
+    ('#ff2d9c', 'M0 -27 C6 -27 20 -4 25 13 C30 25 11 25 0 25 C-11 25 -30 25 -25 13 C-20 -4 -6 -27 0 -27 Z'),
+    ('#ff9800', 'M0 -24 C18 -33 22 -9 26 0 C36 17 12 18 0 26 C-16 32 -21 13 -25 0 C-32 -17 -15 -28 0 -24 Z'),
+    ('#9355ff', 'M0 -28 C6 -28 28 -6 28 0 C28 6 6 28 0 28 C-6 28 -28 6 -28 0 C-28 -6 -6 -28 0 -28 Z'),
+    ('#1485ff', 'M0 -24 C19 -24 27 -15 27 0 C27 15 19 24 0 24 C-19 24 -27 15 -27 0 C-27 -15 -19 -24 0 -24 Z'),
+]
+bot_frames = []
+for index, (color, shape) in enumerate(bot_shapes):
+    bot_frames.append(f'{index / 6 * 100:.3f}%, {(index + .72) / 6 * 100:.3f}% '
+                      f'{{ fill: {color}; d: path("{shape}"); }}')
+bot_frames.append(f'100% {{ fill: {bot_shapes[0][0]}; d: path("{bot_shapes[0][1]}"); }}')
+bot_styles = '''
+    .bot-motion { animation: bot-react 6s ease-in-out infinite; }
+    .bot-body { animation: bot-morph 6s ease-in-out infinite; }
+    .bot-eye { fill: #fff; transform-box: fill-box; transform-origin: center; }
+    .bot-eye-left { animation: eye-left 6s ease-in-out infinite; }
+    .bot-eye-right { animation: eye-right 6s ease-in-out infinite; }
+    .bot-mouth { fill: #fff; transform-box: fill-box; transform-origin: center;
+      animation: mouth-react 6s ease-in-out infinite; }
+    @keyframes bot-react {
+      0%,100% { transform: translateY(0) rotate(0deg); }
+      16.667% { transform: translateY(-4px) rotate(-9deg); }
+      33.333% { transform: translateY(0) rotate(7deg); }
+      50% { transform: translateY(-5px) rotate(-5deg); }
+      66.667% { transform: translateY(1px) rotate(8deg); }
+      83.333% { transform: translateY(-4px) rotate(-7deg); }
+    }
+    @keyframes eye-left {
+      0%,12%,100% { transform: scaleY(1); }
+      17%,29% { transform: scaleY(.35) rotate(-12deg); }
+      34%,46% { transform: scale(1.2); }
+      51%,62% { transform: scaleY(.15); }
+      67%,79% { transform: scaleY(.55) rotate(12deg); }
+      84%,96% { transform: scaleY(.45) rotate(-18deg); }
+    }
+    @keyframes eye-right {
+      0%,12%,100% { transform: scaleY(1); }
+      17%,29% { transform: scaleY(.35) rotate(12deg); }
+      34%,46% { transform: scale(1.2); }
+      51%,62% { transform: scaleY(1); }
+      67%,79% { transform: scaleY(.55) rotate(-12deg); }
+      84%,96% { transform: scaleY(.45) rotate(18deg); }
+    }
+    @keyframes mouth-react {
+      0%,12%,100% { transform: scale(.8,.5); }
+      17%,29% { transform: scale(1.6,.55); }
+      34%,46% { transform: scale(1,1.8); }
+      51%,62% { transform: scale(1.2,.5); }
+      67%,79% { transform: scale(.6,.4); }
+      84%,96% { transform: scale(1.5,1.1); }
+    }
+'''
 svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" viewBox="0 0 1144 344" role="img" aria-labelledby="title description">
-  <title id="title">Priyadarsan D — Electronics Engineering</title>
+  <title id="title">{NAME} — Electronics Engineering</title>
   <desc id="description">{escape(DESCRIPTION)}</desc>
   <style>
+    {bot_styles.strip()}
+    @keyframes bot-morph {{ {''.join(bot_frames)} }}
     .word {{ font: 19px 'Segoe UI', sans-serif; fill: #c3c3ca;
       animation: enter 6s cubic-bezier(.16,1,.3,1) infinite both; }}
     @keyframes enter {{
@@ -73,6 +130,7 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" view
     @media (prefers-reduced-motion: reduce) {{
       .word {{ animation: none; opacity: 1; }}
       .particle {{ animation: none; opacity: 0; }}
+      .bot-motion, .bot-body, .bot-eye, .bot-mouth {{ animation: none; }}
     }}
   </style>
   <rect width="1144" height="344" fill="#000"/>
@@ -80,7 +138,15 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" view
   <g aria-hidden="true">{''.join(particles)}</g>
   <rect x="40" y="28" width="27" height="3" rx="1.5" fill="#ff3333"/>
   <text x="80" y="34" fill="#a8a8ad" font-family="Consolas, monospace" font-size="12" letter-spacing="2">HI, I'M</text>
-  <text x="37" y="99" fill="#f5f5f7" font-family="Segoe UI, sans-serif" font-size="53" font-weight="700" letter-spacing="-1.7">Priyadarsan D<tspan fill="#ff3333">.</tspan></text>
+  <text x="37" y="99" fill="#f5f5f7" font-family="Segoe UI, sans-serif" font-size="53" font-weight="700" letter-spacing="-1.7">{NAME}<tspan fill="#ff3333">.</tspan></text>
+  <g id="bot" transform="translate(645 70)" aria-hidden="true">
+    <g class="bot-motion">
+      <path class="bot-body" fill="{bot_shapes[0][0]}" d="{bot_shapes[0][1]}"/>
+      <rect class="bot-eye bot-eye-left" x="-12" y="-9" width="6" height="14" rx="3"/>
+      <rect class="bot-eye bot-eye-right" x="6" y="-9" width="6" height="14" rx="3"/>
+      <ellipse class="bot-mouth" cx="0" cy="12" rx="3" ry="2"/>
+    </g>
+  </g>
   {''.join(words)}
   <line x1="40" y1="285" x2="684" y2="285" stroke="#292929"/>
   <text x="40" y="316" fill="#eeeeef" font-family="Consolas, monospace" font-size="13" letter-spacing="0.8">EMBEDDED FIRMWARE <tspan fill="#ff3333">/</tspan> EDGE AI/ML <tspan fill="#ff3333">/</tspan> RTOS <tspan fill="#ff3333">/</tspan> VLSI</text>
@@ -89,7 +155,7 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" view
 (ROOT / 'assets/intro.svg').write_text(svg, encoding='utf-8')
 (ROOT / 'README.md').write_text(
     '<p align="center">\n'
-    f'  <img src="assets/intro.svg" alt="{escape(DESCRIPTION, quote=True)}" width="1144">\n'
+    f'  <img src="assets/intro.svg" alt="{NAME}. {escape(DESCRIPTION, quote=True)}" width="1144">\n'
     '</p>\n', encoding='utf-8'
 )
 print(f'Built 1144 x 344 banner; {len(words)} words; {len(particles)} edge particles.')
