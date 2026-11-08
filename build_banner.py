@@ -51,7 +51,6 @@ for row in range(125, source.height - 40, 27):
             f'r="{random.uniform(.55, 1.25):.2f}" fill="{color}" '
             f'style="--dx:{direction * random.uniform(9, 29):.2f}px; '
             f'--dy:{random.uniform(-22, -6):.2f}px; '
-            f'animation-duration:{random.uniform(2.8, 4.8):.2f}s; '
             f'animation-delay:-{random.uniform(0, 5):.2f}s"/>'
         )
 bot_shapes = [
@@ -68,13 +67,13 @@ for index, (color, shape) in enumerate(bot_shapes):
                       f'{{ fill: {color}; d: path("{shape}"); }}')
 bot_frames.append(f'100% {{ fill: {bot_shapes[0][0]}; d: path("{bot_shapes[0][1]}"); }}')
 bot_styles = '''
-    .bot-motion { animation: bot-react 6s ease-in-out infinite; }
-    .bot-body { animation: bot-morph 6s ease-in-out infinite; }
+    .bot-motion { animation: bot-react var(--cycle) ease-in-out infinite; }
+    .bot-body { animation: bot-morph var(--cycle) ease-in-out infinite; }
     .bot-eye { fill: #fff; transform-box: fill-box; transform-origin: center; }
-    .bot-eye-left { animation: eye-left 6s ease-in-out infinite; }
-    .bot-eye-right { animation: eye-right 6s ease-in-out infinite; }
+    .bot-eye-left { animation: eye-left var(--cycle) ease-in-out infinite; }
+    .bot-eye-right { animation: eye-right var(--cycle) ease-in-out infinite; }
     .bot-mouth { fill: #fff; transform-box: fill-box; transform-origin: center;
-      animation: mouth-react 6s ease-in-out infinite; }
+      animation: mouth-react var(--cycle) ease-in-out infinite; }
     @keyframes bot-react {
       0%,100% { transform: translateY(0) rotate(0deg); }
       16.667% { transform: translateY(-4px) rotate(-9deg); }
@@ -108,20 +107,55 @@ bot_styles = '''
       84%,96% { transform: scale(1.5,1.1); }
     }
 '''
+tech_labels = []
+tech_styles = []
+tech_font = ImageFont.truetype('C:/Windows/Fonts/consola.ttf', 13)
+tech_x = 40.0
+for index, label in enumerate(['EMBEDDED FIRMWARE', 'EDGE AI/ML', 'RTOS', 'VLSI']):
+    tech_labels.append(f'<text class="tech-label" x="{tech_x:.2f}" y="316" '
+                       f'style="animation-name:tech-{index}">{label}</text>')
+    start = 6 + index * 10
+    tech_styles.append(f'@keyframes tech-{index} {{ '
+                       f'0%, {start}%, {start + 24}%, 100% {{ transform: translateY(0); fill: #eeeeef; }} '
+                       f'{start + 10}% {{ transform: translateY(-5px); fill: #ff5555; }} }}')
+    tech_x += tech_font.getlength(label) + len(label) * .8 + 12
+    if index < 3:
+        tech_labels.append(f'<text x="{tech_x:.2f}" y="316" fill="#ff3333">/</text>')
+        tech_x += tech_font.getlength('/') + .8 + 12
 svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" viewBox="0 0 1144 344" role="img" aria-labelledby="title description">
   <title id="title">{NAME} — Electronics Engineering</title>
   <desc id="description">{escape(DESCRIPTION)}</desc>
   <style>
+    svg {{ --cycle: 5s; }}
     {bot_styles.strip()}
+    {''.join(tech_styles)}
+    .greeting-mask {{ animation: greeting-type var(--cycle) steps(7, end) infinite; }}
+    @keyframes greeting-type {{
+      0%, 100% {{ width: 0; }}
+      20%, 84% {{ width: 130px; }}
+    }}
+    .profile-name {{ transform-origin: 37px 99px;
+      animation: name-reveal var(--cycle) cubic-bezier(.16,1,.3,1) infinite; }}
+    @keyframes name-reveal {{
+      0%,100% {{ opacity: .35; transform: translateY(7px) scale(.98); }}
+      16%,82% {{ opacity: 1; transform: translateY(0) scale(1); }}
+    }}
+    .name-ink {{ animation: name-shine var(--cycle) ease-in-out infinite; }}
+    @keyframes name-shine {{
+      0%,42%,78%,100% {{ fill: #f5f5f7; }}
+      60% {{ fill: #ff7373; }}
+    }}
+    .tech-label {{ animation-duration: var(--cycle); animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite; }}
     @keyframes bot-morph {{ {''.join(bot_frames)} }}
     .word {{ font: 19px 'Segoe UI', sans-serif; fill: #c3c3ca;
-      animation: enter 6s cubic-bezier(.16,1,.3,1) infinite both; }}
+      animation: enter var(--cycle) cubic-bezier(.16,1,.3,1) infinite both; }}
     @keyframes enter {{
       0% {{ opacity: 0; transform: translateY(10px); }}
       10%, 82% {{ opacity: 1; transform: translateY(0); }}
       94%, 100% {{ opacity: 0; transform: translateY(-8px); }}
     }}
-    .particle {{ opacity: 0; animation: float-out 4s ease-in-out infinite; }}
+    .particle {{ opacity: 0; animation: float-out var(--cycle) ease-in-out infinite; }}
     @keyframes float-out {{
       0% {{ opacity: 0; transform: translate(0,0); }}
       22% {{ opacity: .75; }}
@@ -131,14 +165,17 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" view
       .word {{ animation: none; opacity: 1; }}
       .particle {{ animation: none; opacity: 0; }}
       .bot-motion, .bot-body, .bot-eye, .bot-mouth {{ animation: none; }}
+      .greeting-mask {{ animation: none; width: 130px; }}
+      .profile-name, .name-ink, .tech-label {{ animation: none; }}
     }}
   </style>
+  <defs><clipPath id="greeting-clip"><rect class="greeting-mask" x="80" y="19" width="130" height="20"/></clipPath></defs>
   <rect width="1144" height="344" fill="#000"/>
   <image x="690" y="-17" width="454" height="406" href="data:image/png;base64,{photo}"/>
   <g aria-hidden="true">{''.join(particles)}</g>
   <rect x="40" y="28" width="27" height="3" rx="1.5" fill="#ff3333"/>
-  <text x="80" y="34" fill="#a8a8ad" font-family="Consolas, monospace" font-size="12" letter-spacing="2">HI, I'M</text>
-  <text x="37" y="99" fill="#f5f5f7" font-family="Segoe UI, sans-serif" font-size="53" font-weight="700" letter-spacing="-1.7">{NAME}<tspan fill="#ff3333">.</tspan></text>
+  <text clip-path="url(#greeting-clip)" x="80" y="34" fill="#a8a8ad" font-family="Consolas, monospace" font-size="12" letter-spacing="2">HI, I'M</text>
+  <g class="profile-name"><text class="name-ink" x="37" y="99" fill="#f5f5f7" font-family="Segoe UI, sans-serif" font-size="53" font-weight="700" letter-spacing="-1.7">{NAME}<tspan fill="#ff3333">.</tspan></text></g>
   <g id="bot" transform="translate(645 70)" aria-hidden="true">
     <g class="bot-motion">
       <path class="bot-body" fill="{bot_shapes[0][0]}" d="{bot_shapes[0][1]}"/>
@@ -149,7 +186,7 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" view
   </g>
   {''.join(words)}
   <line x1="40" y1="285" x2="684" y2="285" stroke="#292929"/>
-  <text x="40" y="316" fill="#eeeeef" font-family="Consolas, monospace" font-size="13" letter-spacing="0.8">EMBEDDED FIRMWARE <tspan fill="#ff3333">/</tspan> EDGE AI/ML <tspan fill="#ff3333">/</tspan> RTOS <tspan fill="#ff3333">/</tspan> VLSI</text>
+  <g fill="#eeeeef" font-family="Consolas, monospace" font-size="13" letter-spacing="0.8">{''.join(tech_labels)}</g>
 </svg>
 '''
 (ROOT / 'assets/intro.svg').write_text(svg, encoding='utf-8')
