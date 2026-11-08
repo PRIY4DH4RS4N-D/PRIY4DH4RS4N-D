@@ -28,10 +28,13 @@ for index, word in enumerate(DESCRIPTION.split()):
     )
     x += width + font.getlength(' ')
 assert y <= 255, 'Description exceeds its layout area'
-photo = b64encode((ROOT / 'assets/ME.png').read_bytes()).decode('ascii')
+photo = b64encode((ROOT / 'assets/ME2.png').read_bytes()).decode('ascii')
 # Sample the silhouette to anchor vector particles to the actual portrait edge.
 # The original photo stays intact; only the surrounding SVG dots move.
-source = Image.open(ROOT / 'assets/ME.png').convert('RGB')
+source = Image.open(ROOT / 'assets/ME2.png').convert('RGB')
+photo_scale = min(454 / source.width, 406 / source.height)
+photo_x = 690 + (454 - source.width * photo_scale) / 2
+photo_y = -17 + (406 - source.height * photo_scale) / 2
 random = Random(14)
 particles = []
 for row in range(125, source.height - 40, 27):
@@ -40,8 +43,8 @@ for row in range(125, source.height - 40, 27):
     if len(lit) < 4:
         continue
     for edge, direction in [(lit[0], -1), (lit[-1], 1)]:
-        px = 690 + edge / source.width * 454
-        py = -17 + row / source.height * 406
+        px = photo_x + edge * photo_scale
+        py = photo_y + row * photo_scale
         if not (725 < px < 1120 and 8 < py < 334):
             continue
         red, green, blue = source.getpixel((edge, row))
@@ -67,13 +70,13 @@ for index, (color, shape) in enumerate(bot_shapes):
                       f'{{ fill: {color}; d: path("{shape}"); }}')
 bot_frames.append(f'100% {{ fill: {bot_shapes[0][0]}; d: path("{bot_shapes[0][1]}"); }}')
 bot_styles = '''
-    .bot-motion { animation: bot-react var(--cycle) ease-in-out infinite; }
-    .bot-body { animation: bot-morph var(--cycle) ease-in-out infinite; }
+    .bot-motion { animation: bot-react var(--bot-cycle) ease-in-out infinite; }
+    .bot-body { animation: bot-morph var(--bot-cycle) ease-in-out infinite; }
     .bot-eye { fill: #fff; transform-box: fill-box; transform-origin: center; }
-    .bot-eye-left { animation: eye-left var(--cycle) ease-in-out infinite; }
-    .bot-eye-right { animation: eye-right var(--cycle) ease-in-out infinite; }
+    .bot-eye-left { animation: eye-left var(--bot-cycle) ease-in-out infinite; }
+    .bot-eye-right { animation: eye-right var(--bot-cycle) ease-in-out infinite; }
     .bot-mouth { fill: #fff; transform-box: fill-box; transform-origin: center;
-      animation: mouth-react var(--cycle) ease-in-out infinite; }
+      animation: mouth-react var(--bot-cycle) ease-in-out infinite; }
     @keyframes bot-react {
       0%,100% { transform: translateY(0) rotate(0deg); }
       16.667% { transform: translateY(-4px) rotate(-9deg); }
@@ -109,6 +112,10 @@ bot_styles = '''
 '''
 tech_labels = []
 tech_styles = []
+# Keep the original five seconds of motion, adding a readable two-second
+# hold at t=4s. Remapped keyframe positions use a seven-second timeline.
+# Particles instead rest invisibly after their original five-second drift.
+# The bot has its own unchanged five-second clock.
 tech_font = ImageFont.truetype('C:/Windows/Fonts/consola.ttf', 13)
 tech_x = 40.0
 for index, label in enumerate(['EMBEDDED FIRMWARE', 'EDGE AI/ML', 'RTOS', 'VLSI']):
@@ -116,8 +123,8 @@ for index, label in enumerate(['EMBEDDED FIRMWARE', 'EDGE AI/ML', 'RTOS', 'VLSI'
                        f'style="animation-name:tech-{index}">{label}</text>')
     start = 6 + index * 10
     tech_styles.append(f'@keyframes tech-{index} {{ '
-                       f'0%, {start}%, {start + 24}%, 100% {{ transform: translateY(0); fill: #eeeeef; }} '
-                       f'{start + 10}% {{ transform: translateY(-5px); fill: #ff5555; }} }}')
+                       f'0%, {start * 5 / 7:.6f}%, {(start + 24) * 5 / 7:.6f}%, 100% {{ transform: translateY(0); fill: #eeeeef; }} '
+                       f'{(start + 10) * 5 / 7:.6f}% {{ transform: translateY(-5px); fill: #ff5555; }} }}')
     tech_x += tech_font.getlength(label) + len(label) * .8 + 12
     if index < 3:
         tech_labels.append(f'<text x="{tech_x:.2f}" y="316" fill="#ff3333">/</text>')
@@ -126,24 +133,24 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" view
   <title id="title">{NAME} — Electronics Engineering</title>
   <desc id="description">{escape(DESCRIPTION)}</desc>
   <style>
-    svg {{ --cycle: 5s; }}
+    svg {{ --cycle: 7s; --bot-cycle: 5s; }}
     {bot_styles.strip()}
     {''.join(tech_styles)}
     .greeting-mask {{ animation: greeting-type var(--cycle) steps(7, end) infinite; }}
     @keyframes greeting-type {{
       0%, 100% {{ width: 0; }}
-      20%, 84% {{ width: 130px; }}
+      14.285714%, 57.142857%, 85.714286%, 88.571429% {{ width: 130px; }}
     }}
     .profile-name {{ transform-origin: 37px 99px;
       animation: name-reveal var(--cycle) cubic-bezier(.16,1,.3,1) infinite; }}
     @keyframes name-reveal {{
       0%,100% {{ opacity: .35; transform: translateY(7px) scale(.98); }}
-      16%,82% {{ opacity: 1; transform: translateY(0) scale(1); }}
+      11.428571%, 57.142857%, 85.714286%, 87.142857% {{ opacity: 1; transform: translateY(0) scale(1); }}
     }}
     .name-ink {{ animation: name-shine var(--cycle) ease-in-out infinite; }}
     @keyframes name-shine {{
-      0%,42%,78%,100% {{ fill: #f5f5f7; }}
-      60% {{ fill: #ff7373; }}
+      0%,30%,55.714286%,57.142857%,85.714286%,100% {{ fill: #f5f5f7; }}
+      42.857143% {{ fill: #ff7373; }}
     }}
     .tech-label {{ animation-duration: var(--cycle); animation-timing-function: ease-in-out;
       animation-iteration-count: infinite; }}
@@ -152,14 +159,14 @@ svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1144" height="344" view
       animation: enter var(--cycle) cubic-bezier(.16,1,.3,1) infinite both; }}
     @keyframes enter {{
       0% {{ opacity: 0; transform: translateY(10px); }}
-      10%, 82% {{ opacity: 1; transform: translateY(0); }}
-      94%, 100% {{ opacity: 0; transform: translateY(-8px); }}
+      7.142857%, 57.142857%, 85.714286%, 87.142857% {{ opacity: 1; transform: translateY(0); }}
+      95.714286%, 100% {{ opacity: 0; transform: translateY(-8px); }}
     }}
     .particle {{ opacity: 0; animation: float-out var(--cycle) ease-in-out infinite; }}
     @keyframes float-out {{
       0% {{ opacity: 0; transform: translate(0,0); }}
-      22% {{ opacity: .75; }}
-      100% {{ opacity: 0; transform: translate(var(--dx), var(--dy)); }}
+      15.714286% {{ opacity: .75; }}
+      71.428571%, 100% {{ opacity: 0; transform: translate(var(--dx), var(--dy)); }}
     }}
     @media (prefers-reduced-motion: reduce) {{
       .word {{ animation: none; opacity: 1; }}
